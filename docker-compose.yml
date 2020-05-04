@@ -1,0 +1,52 @@
+version: '3.7'
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:7.6.0
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - http.max_content_length=200mb
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - wiki-backend-net
+  wikisources-search-webservice:
+    container_name: wikisources-search-webservice
+    image: twwoteam14/wikisources-search-webservice:1.0.0-SNAPSHOT
+    build: ./wikisources-search-webservice
+    ports:
+      - "8080:8080"
+    networks:
+      - wiki-frontend-net
+      - wiki-backend-net
+    depends_on:
+      - elasticsearch
+  wikisources-search-webapp:
+    container_name: wikisources-search-webapp
+    image: twwoteam14/wikisources-search-webapp:1.0.0-SNAPSHOT
+    build: ./wikisources-search-webapp
+    ports:
+      - "4200:80"
+    networks:
+      - wiki-frontend-net
+    depends_on:
+      - wikisources-search-webservice
+
+volumes:
+  es-data:
+    name: es-data
+    driver: local
+
+networks:
+  wiki-frontend-net:
+    driver: bridge
+  wiki-backend-net:
+    driver: bridge
