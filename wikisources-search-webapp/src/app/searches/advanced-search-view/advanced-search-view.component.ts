@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-advanced-search-view',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancedSearchViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onBackClicked() {
+    this.router.navigate(['/main']);
+  }
+
+  onSearchClicked() {
+    this.router.navigate(['/results']);
+  }
 }
