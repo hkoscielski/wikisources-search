@@ -13,9 +13,9 @@ import java.util.List;
 public class SourceResponseDTO {
 
     private final String id;
-    private final List<String> auxiliaryText;
     private final List<String> category;
-    private final String text;
-    private final Instant lastUpdate;
     private final String title;
+    private final String text;
+    private final List<String> auxiliaryText;
+    private final Instant lastUpdate;
 }

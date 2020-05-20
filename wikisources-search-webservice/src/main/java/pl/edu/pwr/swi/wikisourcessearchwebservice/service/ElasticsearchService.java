@@ -3,6 +3,8 @@ package pl.edu.pwr.swi.wikisourcessearchwebservice.service;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pwr.swi.wikisourcessearchwebservice.config.ElasticsearchConstants;
 import pl.edu.pwr.swi.wikisourcessearchwebservice.domain.Source;
+import pl.edu.pwr.swi.wikisourcessearchwebservice.exception.ResourceNotFoundException;
 import pl.edu.pwr.swi.wikisourcessearchwebservice.exception.ServiceUnavailableException;
 import pl.edu.pwr.swi.wikisourcessearchwebservice.payload.request.SearchRequestDTO;
 import pl.edu.pwr.swi.wikisourcessearchwebservice.payload.response.SearchResponseDTO;
@@ -40,6 +43,19 @@ public class ElasticsearchService {
     public boolean ping() {
         try {
             return esClient.ping(RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            throw new ServiceUnavailableException("Elasticsearch");
+        }
+    }
+
+    public SourceResponseDTO getSourceById(String id) {
+        try {
+            GetRequest getRequest = new GetRequest(ElasticsearchConstants.WIKISOURCES_INDEX, id);
+            GetResponse getResponse = esClient.get(getRequest, RequestOptions.DEFAULT);
+            if (getResponse.isSourceEmpty()) {
+                throw new ResourceNotFoundException("Source", "id", id);
+            }
+            return prepareSourceResponse(getResponse);
         } catch (IOException e) {
             throw new ServiceUnavailableException("Elasticsearch");
         }
@@ -109,22 +125,29 @@ public class ElasticsearchService {
 
         for (SearchHit sh : searchHits.getHits()) {
             Map<String, Object> source = sh.getSourceAsMap();
-            sources.add(
-                    SourceResponseDTO.builder()
-                            .id(sh.getId())
-                            .auxiliaryText((List<String>) source.getOrDefault(Source.AUXILIARY_TEXT, Collections.emptyList()))
-                            .category((List<String>) source.getOrDefault(Source.CATEGORY, Collections.emptyList()))
-                            .lastUpdate(Instant.parse((String) source.getOrDefault(Source.TIMESTAMP, null)))
-                            .text((String) source.getOrDefault(Source.TEXT, StringUtils.EMPTY))
-                            .title((String) source.getOrDefault(Source.TITLE, StringUtils.EMPTY))
-                            .build()
-            );
+            sources.add(prepareSourceResponse(sh.getId(), source));
         }
 
         return SearchResponseDTO.builder()
                 .hits(searchHits.getTotalHits().value)
                 .took(searchResponse.getTook().millis())
                 .source(sources)
+                .build();
+    }
+
+    private SourceResponseDTO prepareSourceResponse(GetResponse getResponse) {
+        Map<String, Object> source = getResponse.getSourceAsMap();
+        return prepareSourceResponse(getResponse.getId(), source);
+    }
+
+    private SourceResponseDTO prepareSourceResponse(String id, Map<String, Object> source) {
+        return SourceResponseDTO.builder()
+                .id(id)
+                .auxiliaryText((List<String>) source.getOrDefault(Source.AUXILIARY_TEXT, Collections.emptyList()))
+                .category((List<String>) source.getOrDefault(Source.CATEGORY, Collections.emptyList()))
+                .lastUpdate(Instant.parse((String) source.getOrDefault(Source.TIMESTAMP, null)))
+                .text((String) source.getOrDefault(Source.TEXT, StringUtils.EMPTY))
+                .title((String) source.getOrDefault(Source.TITLE, StringUtils.EMPTY))
                 .build();
     }
 }
