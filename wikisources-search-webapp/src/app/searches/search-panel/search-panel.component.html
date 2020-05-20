@@ -1,1 +1,51 @@
-<p>search-panel works!</p>
+
+<div class="row">
+  <div class="form-control" (click)="searchBox.focus()"
+       (mouseover)="isMouseOverInput=true" (mouseout)="isMouseOverInput=false"
+       [ngClass]="{'shadow-none': !isInputFocused && !isMouseOverInput, 'shadow': isMouseOverInput && !isInputFocused, 'custom-outline': isInputFocused}"
+       style="width: 85%; border-radius: 1rem;">
+    <span>
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </span>
+    <input type="text" (focusin)="isInputFocused = true" (focusout)="isInputFocused = false"
+           style="margin-left:8px; width: 95%; border:0; outline: 0;"
+           #searchBox
+           placeholder="search"
+    />
+  </div>
+  <span style="width: 15%;">
+    <button class="btn btn-light" (click)="onBasicSearchClicked()" title="Search" style="border-radius: 1rem; margin: 0 8px 0 8px;"><i class="fa fa-search"></i></button>
+    <button class="btn btn-light" (click)="onAdvancedSearchClicked()" title="Advanced Search" style="border-radius: 1rem;"><i class="fa fa-bars"></i></button>
+  </span>
+</div>
+<!--</div>-->
+<!--<ng-template ngbPanelContent #rtCourseInstructor let-r="result" let-t="term">-->
+<!--  <ngb-highlight [result]="r.academicDegree + ' ' + r.firstName  + ' ' + r.surname" [term]="t"></ngb-highlight>-->
+<!--</ng-template>-->
+
+<!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
+
+<!--<div style="width: 50%; margin: 33vh auto;" >-->
+<!--  <i class="fa fa-wikipedia-w d-block mx-auto" style="font-size:4rem; text-align: center; margin-bottom: 15px"></i>-->
+<!--  <div class="d-flex d-row">-->
+<!--    <span style="width: 15%;">-->
+<!--    </span>-->
+<!--    <div class="form-control" (click)="searchBox.focus()"-->
+<!--         (mouseover)="isMouseOverInput=true" (mouseout)="isMouseOverInput=false"-->
+<!--         [ngClass]="{'shadow-none': !isInputFocused && !isMouseOverInput, 'shadow': isMouseOverInput && !isInputFocused, 'custom-outline': isInputFocused}"-->
+<!--         style="width: 70%; border-radius: 1rem;">-->
+<!--      <span>-->
+<!--        <i class="fa fa-search" aria-hidden="true"></i>-->
+<!--      </span>-->
+<!--      <input type="text" (focusin)="isInputFocused = true" (focusout)="isInputFocused = false"-->
+<!--             style="margin-left:8px; width: 95%; border:0; outline: 0;"-->
+<!--             #searchBox-->
+<!--             placeholder="search"-->
+<!--      />-->
+<!--    </div>-->
+<!--    <span style="width: 15%;">-->
+<!--      <button class="btn btn-light" (click)="onBasicSearchClicked()" title="Search" style="border-radius: 1rem; margin: 0 8px 0 8px;"><i class="fa fa-search"></i></button>-->
+<!--      <button class="btn btn-light" (click)="onAdvancedSearchClicked()" title="Advanced Search" style="border-radius: 1rem;"><i class="fa fa-bars"></i></button>-->
+<!--    </span>-->
+<!--  </div>-->
+<!--</div>-->

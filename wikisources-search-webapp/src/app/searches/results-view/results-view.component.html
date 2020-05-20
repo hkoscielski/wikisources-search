@@ -1,1 +1,20 @@
-<p>results-view works!</p>
+<!--<p>results-view works!</p>-->
+<div class="mx-auto" style="width: 50%;">
+  <app-search-header></app-search-header>
+  <span style="font-size: small;">{{resultsCount}} results in {{timeCountMiliseconds}} ms</span>
+  <div class="overflow-auto mx-auto" style="height: 75vh; padding-right: 5px;">
+    <app-result-card></app-result-card>
+    <app-result-card></app-result-card>
+    <app-result-card></app-result-card>
+    <app-result-card></app-result-card>
+    <app-result-card></app-result-card>
+    <app-result-card></app-result-card>
+    <app-result-card></app-result-card>
+    <app-result-card></app-result-card>
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="100" [maxSize]="5">
+    <ng-template ngbPaginationPrevious>Previous</ng-template>
+    <ng-template ngbPaginationNext>Next</ng-template>
+    <ng-template ngbPaginationEllipsis>...</ng-template>
+  </ngb-pagination>
+</div>

@@ -1,1 +1,10 @@
-<p>result-card works!</p>
+<div class="card card-outline-secondary mx-auto shadow-sm rounded my-drop-down"  style="margin: 10px; width: 100%;">
+  <a class="card-body" role="button" style="padding: 10px" (click)="onCardClicked()">
+    <div>
+      <h5 style="margin: 0;">{{title}}</h5>
+    </div>
+    <hr style="margin-top: 8px; margin-bottom: 8px;">
+    <div class="text">{{content}}</div>
+    <a href="#" class="stretched-link">Read more</a>
+  </a>
+</div>

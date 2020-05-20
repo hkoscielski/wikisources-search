@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search-panel',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPanelComponent implements OnInit {
 
-  constructor() { }
+  isInputFocused: boolean = false;
+  isMouseOverInput: boolean = false;
+
+  @ViewChild('searchBox', {static: true}) searchBox;
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onBasicSearchClicked() {
+    this.router.navigate(['/results']);
+  }
+
+  onAdvancedSearchClicked() {
+    this.router.navigate(['/advanced']);
+  }
 }

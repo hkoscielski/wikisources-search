@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultsViewComponent implements OnInit {
 
+  resultsCount: number = 9124123;
+  timeCountMiliseconds: number = 914;
+
   constructor() { }
 
   ngOnInit(): void {
