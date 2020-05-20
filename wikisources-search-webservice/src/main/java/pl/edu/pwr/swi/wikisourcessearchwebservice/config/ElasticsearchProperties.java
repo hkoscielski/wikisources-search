@@ -13,5 +13,4 @@ public class ElasticsearchProperties {
 
     private final String hostname;
     private final Integer port;
-    private final String index;
 }
