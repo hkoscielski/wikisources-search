@@ -3,16 +3,19 @@
 
 <div class="mx-auto" style="width: 50%; min-width: 720px; margin-top:1rem;" >
   <div class="d-flex flex-row" >
-    <i class="fa fa-wikipedia-w" style="font-size:3rem; margin-left: 3rem; margin-right:3rem;"></i>
-    <h2>Advanced Search</h2>
+    <!--    <i class="fa fa-wikipedia-w" style="font-size:3rem; margin-left: 3rem; margin-right:3rem;" (click)="onBackClicked()"></i>-->
+    <h2>
+      <button class="btn btn-light" (click)="onBackClicked()" title="Go to Main Page" style="border-radius: 3rem; background-color: transparent; font-size: 3rem;"><i class="fa fa-wikipedia-w"></i></button>
+      Advanced Search
+    </h2>
   </div>
-  <hr>
+  <hr style="margin-top:0;">
   <div class="d-flex d-row top-buffer">
     <div class="col-3">
       <span>all these words:</span>
     </div>
     <div class="col-5">
-      <input class="form-control">
+      <input class="form-control" [(ngModel)]="all">
     </div>
     <div class="col-4">
       <span>info and instruction of typing</span>
@@ -23,7 +26,7 @@
       <span>this exact phrases:</span>
     </div>
     <div class="col-5">
-      <input class="form-control">
+      <input class="form-control" [(ngModel)]="exact">
     </div>
     <div class="col-4">
       <span>info and instruction of typing</span>
@@ -34,7 +37,7 @@
       <span>any of these words:</span>
     </div>
     <div class="col-5">
-      <input class="form-control">
+      <input class="form-control" [(ngModel)]="any">
     </div>
     <div class="col-4">
       <span>info and instruction of typing</span>
@@ -45,7 +48,7 @@
       <span>none of these words:</span>
     </div>
     <div class="col-5">
-      <input class="form-control">
+      <input class="form-control" [(ngModel)]="none">
     </div>
     <div class="col-4">
       <span>info and instruction of typing</span>
@@ -65,7 +68,7 @@
       <button class="d-block float-md-left btn-link" style="border: none; background: none" (click)="onBackClicked()">< Back</button>
     </div>
     <div class="col-6">
-      <button class="btn btn-secondary d-flex mx-auto" (click)="onSearchClicked()">Search</button>
+      <button class="btn btn-secondary d-flex mx-auto" [disabled]="isSearchDisabled()" (click)="onSearchClicked()">Search</button>
     </div>
   </div>
 </div>

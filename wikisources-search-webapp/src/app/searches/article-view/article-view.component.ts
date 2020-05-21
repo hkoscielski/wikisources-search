@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SharedDataService} from "../shared-data.service";
 
 @Component({
   selector: 'app-article-view',
@@ -20,7 +21,7 @@ export class ArticleViewComponent implements OnInit {
     "\n" +
     "Quisque id felis et turpis tristique pharetra id sit amet leo. Phasellus consectetur mattis pharetra. Nam condimentum porttitor ipsum, vitae gravida ipsum pretium in. Ut venenatis et mi fringilla tempor. Etiam neque nunc, lacinia quis maximus vel, pulvinar at risus. Proin pharetra arcu quis lorem volutpat, in imperdiet est tempus. Nullam dignissim, ipsum quis interdum dignissim, arcu erat ornare leo, consectetur cursus mi felis non mi. Aliquam est elit, dignissim vel risus ac, consequat ornare leo. Nam vitae arcu ante. Sed accumsan quis ipsum nec lacinia. Praesent eu vulputate lectus.";
 
-  constructor() { }
+  constructor(public sharedDataService: SharedDataService) { }
 
   ngOnInit(): void {
   }

@@ -3,9 +3,9 @@
   <app-search-header></app-search-header>
   <div class="overflow-auto mx-auto" style="height: 75vh; padding-right: 5px;">
     <div>
-      <h5 style="margin: 0;">{{title}}</h5>
+      <h5 style="margin: 0;">{{this.sharedDataService.actualSource.title}}</h5>
     </div>
     <hr style="margin-top: 8px; margin-bottom: 8px;">
-    <div class="text">{{content}}</div>
+    <div class="text">{{this.sharedDataService.actualSource.text}}</div>
   </div>
 </div>

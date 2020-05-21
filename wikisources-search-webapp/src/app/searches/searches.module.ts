@@ -8,14 +8,16 @@ import { ResultCardComponent } from './result-card/result-card.component';
 import { ResultsViewComponent } from './results-view/results-view.component';
 import { ArticleViewComponent } from './article-view/article-view.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
 
 
 
 @NgModule({
   declarations: [MainSearchViewComponent, SearchHeaderComponent, SearchPanelComponent, AdvancedSearchViewComponent, ResultCardComponent, ResultsViewComponent, ArticleViewComponent],
-  imports: [
-    CommonModule,
-    NgbModule
-  ]
+    imports: [
+        CommonModule,
+        NgbModule,
+        FormsModule
+    ]
 })
 export class SearchesModule { }

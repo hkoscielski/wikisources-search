@@ -11,10 +11,12 @@
            style="margin-left:8px; width: 95%; border:0; outline: 0;"
            #searchBox
            placeholder="search"
+           [(ngModel)]="inputValue"
+           (keydown.enter)="!isBasicSearchDisabled() ? onBasicSearchClicked() : ''"
     />
   </div>
   <span style="width: 15%;">
-    <button class="btn btn-light" (click)="onBasicSearchClicked()" title="Search" style="border-radius: 1rem; margin: 0 8px 0 8px;"><i class="fa fa-search"></i></button>
+    <button class="btn btn-light" [disabled]="isBasicSearchDisabled()" (click)="onBasicSearchClicked()" title="Search" style="border-radius: 1rem; margin: 0 8px 0 8px;"><i class="fa fa-search"></i></button>
     <button class="btn btn-light" (click)="onAdvancedSearchClicked()" title="Advanced Search" style="border-radius: 1rem;"><i class="fa fa-bars"></i></button>
   </span>
 </div>
