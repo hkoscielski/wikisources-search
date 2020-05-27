@@ -6,6 +6,7 @@
       <h5 style="margin: 0;">{{this.sharedDataService.actualSource.title}}</h5>
     </div>
     <hr style="margin-top: 8px; margin-bottom: 8px;">
-    <div class="text">{{this.sharedDataService.actualSource.text}}</div>
+    <div class="text">{{this.sharedDataService.actualSource.lastUpdate}}</div>
+    <div class="text" [innerHTML]="this.sharedDataService.actualSource.text"></div>
   </div>
 </div>

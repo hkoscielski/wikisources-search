@@ -12,54 +12,92 @@
   <hr style="margin-top:0;">
   <div class="d-flex d-row top-buffer">
     <div class="col-3">
-      <span>all these words:</span>
+      <label class="col-form-label">all these words:</label>
     </div>
     <div class="col-5">
       <input class="form-control" [(ngModel)]="all">
     </div>
     <div class="col-4">
-      <span>info and instruction of typing</span>
+      <label class="col-form-label">info and instruction of typing</label>
     </div>
   </div>
   <div class="d-flex d-row top-buffer">
     <div class="col-3">
-      <span>this exact phrases:</span>
+      <label class="col-form-label">this exact phrases:</label>
     </div>
     <div class="col-5">
       <input class="form-control" [(ngModel)]="exact">
     </div>
     <div class="col-4">
-      <span>info and instruction of typing</span>
+      <label class="col-form-label">info and instruction of typing</label>
     </div>
   </div>
   <div class="d-flex d-row top-buffer">
     <div class="col-3">
-      <span>any of these words:</span>
+      <label class="col-form-label">any of these words:</label>
     </div>
     <div class="col-5">
       <input class="form-control" [(ngModel)]="any">
     </div>
     <div class="col-4">
-      <span>info and instruction of typing</span>
+      <label class="col-form-label">info and instruction of typing</label>
     </div>
   </div>
   <div class="d-flex d-row top-buffer">
     <div class="col-3">
-      <span>none of these words:</span>
+      <label class="col-form-label">none of these words:</label>
     </div>
     <div class="col-5">
       <input class="form-control" [(ngModel)]="none">
     </div>
     <div class="col-4">
-      <span>info and instruction of typing</span>
+      <label class="col-form-label">info and instruction of typing</label>
     </div>
   </div>
   <div class="d-flex d-row top-buffer">
     <div class="col-3">
-      <span>last update:</span>
+      <label class="col-form-label">last update:</label>
     </div>
     <div class="col">
-      <input class="form-control">
+      <form class="form-inline">
+        <div class="form-group">
+
+<!--          <label class="col-form-label">&nbsp;OR&nbsp;</label>-->
+          <div class="input-group">
+            <label for="dateFromId" class="col-form-label">from&nbsp;</label>
+            <input id="dateFromId" class="form-control" placeholder="yyyy-mm-dd" style="width: 8vw; min-width: 120px;"
+                   name="dpFrom" [(ngModel)]="dateFrom" ngbDatepicker [footerTemplate]="footerTemplateFrom" #dFrom="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary fa fa-calendar" (click)="dFrom.toggle()" type="button"></button>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="dateToId" class="col-form-label">&nbsp;to&nbsp;</label>
+            <input id="dateToId" class="form-control" placeholder="yyyy-mm-dd" style="width: 8vw; min-width: 120px;"
+                   name="dpTo" [(ngModel)]="dateTo" ngbDatepicker [footerTemplate]="footerTemplateTo" #dTo="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary fa fa-calendar" (click)="dTo.toggle()" type="button"></button>
+            </div>
+          </div>
+<!--          <label>&nbsp;OR&nbsp;</label>-->
+<!--          <select class="form-control" style="width: 8vw; min-width: 120px;">-->
+<!--            <option>anytime</option>-->
+<!--            <option>last 7 days</option>-->
+<!--            <option>last month</option>-->
+<!--            <option>last year</option>-->
+<!--          </select>-->
+        </div>
+      </form>
+      <ng-template #footerTemplateFrom>
+        <hr class="my-0">
+<!--        <button class="btn btn-primary btn-sm m-2 float-left" (click)="dateFrom = today; dFrom.close()">Today</button>-->
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="dTo.close()">Close</button>
+      </ng-template>
+      <ng-template #footerTemplateTo>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="dateTo = today; dFrom.close()">Today</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="dTo.close()">Close</button>
+      </ng-template>
     </div>
   </div>
   <hr>

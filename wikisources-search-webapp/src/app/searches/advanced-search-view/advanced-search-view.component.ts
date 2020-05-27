@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {SharedDataService} from "../shared-data.service";
+import {NgbCalendar, NgbDateStruct, NgbDate} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-advanced-search-view',
@@ -14,7 +15,11 @@ export class AdvancedSearchViewComponent implements OnInit {
   exact: string;
   none: string;
 
-  constructor(private router: Router, private sharedDataService: SharedDataService) { }
+  dateFrom: NgbDateStruct;
+  dateTo: NgbDateStruct;
+  today = this.calendar.getToday();
+
+  constructor(private router: Router, private sharedDataService: SharedDataService, private calendar: NgbCalendar) { }
 
   ngOnInit(): void {
     if (this.sharedDataService.onSearchOptionsChanged$.value.advanced) {
@@ -22,6 +27,20 @@ export class AdvancedSearchViewComponent implements OnInit {
       this.any = this.sharedDataService.onSearchOptionsChanged$.value.any;
       this.exact = this.sharedDataService.onSearchOptionsChanged$.value.exact;
       this.none = this.sharedDataService.onSearchOptionsChanged$.value.none;
+      // if (this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateFrom) {
+      //   this.dateFrom = new NgbDate(
+      //     this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateFrom.getFullYear(),
+      //     this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateFrom.getMonth() + 1,
+      //     this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateFrom.getDay()
+      //   );
+      // }
+      // if (this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateTo) {
+      //   this.dateTo = new NgbDate(
+      //     this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateTo.getFullYear(),
+      //     this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateTo.getMonth() + 1,
+      //     this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateTo.getDay()
+      //   );
+      // }
     }
   }
 
@@ -35,6 +54,12 @@ export class AdvancedSearchViewComponent implements OnInit {
     this.sharedDataService.onSearchOptionsChanged$.value.any = this.any;
     this.sharedDataService.onSearchOptionsChanged$.value.exact = this.exact;
     this.sharedDataService.onSearchOptionsChanged$.value.none = this.none;
+    if (this.dateFrom) {
+      this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateFrom = new Date(this.dateFrom.year, this.dateFrom.month - 1, this.dateFrom.day);
+    }
+    if (this.dateTo) {
+      this.sharedDataService.onSearchOptionsChanged$.value.lastUpdateTo = new Date(this.dateTo.year, this.dateTo.month - 1, this.dateTo.day);
+    }
     this.sharedDataService.onSearchOptionsChanged$.next(this.sharedDataService.onSearchOptionsChanged$.value);
     this.router.navigate(['/results']);
   }
@@ -43,6 +68,8 @@ export class AdvancedSearchViewComponent implements OnInit {
     return (this.all == '' || this.all == undefined) &&
           (this.any == '' || this.any == undefined) &&
           (this.exact == '' || this.exact == undefined) &&
-          (this.none == '' || this.none == undefined);
+          (this.none == '' || this.none == undefined) &&
+          (this.dateFrom == undefined) &&
+          (this.dateTo == undefined);
   }
 }

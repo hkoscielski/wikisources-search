@@ -4,16 +4,8 @@
   <span *ngIf="resultsCount >= 0" style="font-size: small;">{{resultsCount > 9999 ? '9999+' : resultsCount}} results in {{timeCountMiliseconds}} ms</span>
   <div class="overflow-auto mx-auto" style="height: 75vh; padding-right: 5px;">
     <app-result-card *ngFor="let x of sources" [source]="x"></app-result-card>
-<!--    <app-result-card></app-result-card>-->
-<!--    <app-result-card></app-result-card>-->
-<!--    <app-result-card></app-result-card>-->
-<!--    <app-result-card></app-result-card>-->
-<!--    <app-result-card></app-result-card>-->
-<!--    <app-result-card></app-result-card>-->
-<!--    <app-result-card></app-result-card>-->
-<!--    <app-result-card></app-result-card>-->
   </div>
-  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="resultsCount" [maxSize]="5">
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="resultsCount" [maxSize]="5" [(page)]="page"  (pageChange)="onPageChange()">
     <ng-template ngbPaginationPrevious>Previous</ng-template>
     <ng-template ngbPaginationNext>Next</ng-template>
     <ng-template ngbPaginationEllipsis>...</ng-template>

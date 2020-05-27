@@ -12,6 +12,7 @@
            #searchBox
            placeholder="search"
            [(ngModel)]="inputValue"
+           [ngbTypeahead]="search"
            (keydown.enter)="!isBasicSearchDisabled() ? onBasicSearchClicked() : ''"
     />
   </div>

@@ -26,7 +26,7 @@ export class SearchService {
         filterOptions.from ? filterOptions.from : undefined);
     }
     else {
-      return this.searchSources(undefined, undefined, filterOptions.any, undefined, undefined, undefined, undefined, undefined);
+      return this.searchSources(undefined, undefined, filterOptions.any, undefined, undefined, undefined, filterOptions.size ? filterOptions.size : undefined, filterOptions.from ? filterOptions.from : undefined);
     }
   }
 
@@ -36,8 +36,8 @@ export class SearchService {
     if (exact) params = params.set('exact', exact);
     if (any) params = params.set('any', any);
     if (none) params = params.set('none', none);
-    if (lastUpdateFrom) params = params.set('lastUpdateFrom', lastUpdateFrom.toString());
-    if (lastUpdateTo) params = params.set('lastUpdateTo', lastUpdateTo.toString());
+    if (lastUpdateFrom) params = params.set('lastUpdateFrom', lastUpdateFrom.toISOString().split('.')[0]+"Z");
+    if (lastUpdateTo) params = params.set('lastUpdateTo', lastUpdateTo.toISOString().split('.')[0]+"Z");
     if (size) params = params.set('size', size.toString());
     if (from) params = params.set('from', from.toString());
     console.log("Headers: " + params.toString());

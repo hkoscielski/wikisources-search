@@ -12,12 +12,21 @@ export class ResultsViewComponent implements OnInit {
   resultsCount: number = -1;
   timeCountMiliseconds: number = -1;
   sources: Source[] = [];
+  page: number = 1;
+  isTimeLocked: boolean = false;
 
   constructor(private searchService: SearchService, private sharedDataService: SharedDataService) { }
 
   ngOnInit(): void {
     this.sharedDataService.onSearchOptionsChanged$.subscribe(x => this.search());
-    this.search();
+    this.onPageChange();
+  }
+
+  onPageChange() {
+    this.isTimeLocked = true;
+    this.sharedDataService.onSearchOptionsChanged$.value.size = 10;
+    this.sharedDataService.onSearchOptionsChanged$.value.from = (this.page - 1) * this.sharedDataService.onSearchOptionsChanged$.value.size;
+    this.sharedDataService.onSearchOptionsChanged$.next(this.sharedDataService.onSearchOptionsChanged$.value);
   }
 
   search() {
@@ -26,7 +35,12 @@ export class ResultsViewComponent implements OnInit {
       .subscribe(
         search => {
           this.resultsCount = search.hits;
-          this.timeCountMiliseconds = search.took;
+          if (!this.isTimeLocked) {
+            this.timeCountMiliseconds = search.took;
+          }
+          else {
+            this.isTimeLocked = false;
+          }
           this.sources = search.source;
         }
       );

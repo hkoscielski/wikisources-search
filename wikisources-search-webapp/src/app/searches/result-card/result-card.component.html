@@ -4,7 +4,7 @@
       <h5 style="margin: 0;">{{source.title}}</h5>
     </div>
     <hr style="margin-top: 8px; margin-bottom: 8px;">
-    <div class="text">{{source.text}}</div>
+    <div class="text" [innerHTML]="source.text"></div>
     <a href="javascript:void(0)" (click)="onCardClicked()" class="stretched-link">Read more</a>
   </a>
 </div>
