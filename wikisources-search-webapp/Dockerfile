@@ -19,3 +19,9 @@ RUN chown -R root:daemon \
 RUN chmod -R 440 \
   /usr/local/apache2/htdocs/*
 RUN find /usr/local/apache2/htdocs/ -mindepth 1 -type d -exec chmod +x {} \;
+
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["httpd-foreground"]
