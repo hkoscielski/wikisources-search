@@ -1,0 +1,45 @@
+{
+    "settings" : {
+        "analysis": {
+            "analyzer": {
+                "ch_analyzer": {
+                    "tokenizer": "standard",
+                    "char_filter":  [ "html_strip" ],
+                    "filter": [ "lowercase" ]
+                }
+            }
+        }
+    },
+    "mappings" : {
+        "dynamic" : "strict",
+        "properties" : {
+            "auxiliary_text": { "type": "text", "analyzer": "ch_analyzer" },
+            "title": { "type": "text", "analyzer": "ch_analyzer" },
+            "category": { "type": "text", "analyzer": "ch_analyzer" },
+            "text": { "type" : "text", "analyzer": "ch_analyzer" },
+            "timestamp": { "type" : "date", "format": "date_time_no_millis" },
+            "display_title": { "enabled": false },
+            "redirect": { "enabled": false },
+            "defaultsort": { "enabled": false },
+            "template": { "enabled": false },
+            "heading": { "enabled": false },
+            "external_link": { "enabled": false },
+            "outgoing_link": { "enabled": false },
+            "opening_text": { "enabled": false },
+            "version_type": { "enabled": false },
+            "source_text": { "enabled": false },
+            "wiki": { "enabled": false },
+            "language": { "enabled": false },
+            "version": { "enabled": false },
+            "score": { "enabled": false },
+            "namespace_text": { "enabled": false },
+            "namespace": { "enabled": false },
+            "text_bytes": { "enabled": false },
+            "incoming_links": { "enabled": false },
+            "popularity_score": { "enabled": false },
+            "content_model": { "enabled": false },
+            "create_timestamp": { "enabled": false },
+            "wikibase_item": { "enabled": false }
+        }
+    }
+}
