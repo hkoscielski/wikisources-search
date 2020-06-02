@@ -8,7 +8,7 @@ ES_HOST="http://$(docker-machine ip):9200"
 
 create_index_if_not_exists () {
   printf "Creating index from %s file ...\n" "${index_filename}"
-  http_code=$(curl -s -o /dev/null -w "%{http_code}" -H 'Content-Type: application/x-ndjson' -XPUT "$ES_HOST"/wikisources2 --data-binary @"$index_filename")
+  http_code=$(curl -s -o /dev/null -w "%{http_code}" -H 'Content-Type: application/x-ndjson' -XPUT "$ES_HOST"/wikisources --data-binary @"$index_filename")
   if [ "$http_code" == '200' ]
   then
       printf "Index created successfully\n"
