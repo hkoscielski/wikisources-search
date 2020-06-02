@@ -20,13 +20,30 @@ This project is simple IR system operating on Wikisources dataset indexed in Ela
     ```
     API_BASE_HOST=$(docker-machine ip) docker-compose up -d
     ```
+
+3. Check if elasticsearch is started:
+
+   ```
+   curl http://$(docker-machine ip):8080/api/v1/verify-es
+   ```
+   Elasticsearch is started if response is ```true```
    
-3. Index documents in elasticsearch:
+4. Index documents in elasticsearch:
 
     ```
     cd elasticsearch/
     ./index_documents_in_es_bulk.sh index.json sample_data/enwikisource-20000.json
     ```
+   
+5. Connect to website in browser:
+
+   ```
+   http://<ip>:4200
+   ```
+   where ```<ip>``` can be checked in terminal using the following command: 
+   ```
+   docker-machine ip
+   ```
    
 ### Regular usage
 1. Stop applications:
