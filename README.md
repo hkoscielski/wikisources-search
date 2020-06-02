@@ -11,14 +11,14 @@ This project is simple IR system operating on Wikisources dataset indexed in Ela
 1. Download project:
 
     ```
-    git clone
+    git clone https://github.com/hkoscielski/wikisources-search.git
     cd wikisources-search/
     ```
    
 2. Run all applications:
 
     ```
-    docker-compose up -d
+    API_BASE_HOST=$(docker-machine ip) docker-compose up -d
     ```
    
 3. Index documents in elasticsearch:
