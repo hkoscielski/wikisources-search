@@ -21,7 +21,6 @@ services:
   wikisources-search-webservice:
     container_name: wikisources-search-webservice
     image: twwoteam14/wikisources-search-webservice:1.0.0-SNAPSHOT
-    build: ./wikisources-search-webservice
     ports:
       - "8080:8080"
     networks:
@@ -32,7 +31,6 @@ services:
   wikisources-search-webapp:
     container_name: wikisources-search-webapp
     image: twwoteam14/wikisources-search-webapp:1.0.0-SNAPSHOT
-    build: ./wikisources-search-webapp
     ports:
       - "4200:80"
     environment:

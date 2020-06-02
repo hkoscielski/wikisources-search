@@ -32,7 +32,6 @@ index_data () {
       printf "Processing file %s ...\n" "${file}"
       response=$(curl -s -H 'Content-Type: application/x-ndjson' -XPOST "$ES_HOST"/_bulk --data-binary @"$file")
       errors=$(echo "$response" | grep errors | cut -d':' -f 3 | cut -d',' -f 1 | sed -e 's/^[[:space:]]*//')
-      echo "$errors"
       if [ "$errors" != "false" ]
       then
           echo "Indexing with errors: response body - ${response}"
